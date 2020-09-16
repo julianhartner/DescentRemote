@@ -1,4 +1,5 @@
 descent_remote_final/obj/
+descent_remote_final/bin/
 .vscode/tasks.json
 .vscode/launch.json
 .vs/descent_remote_final/xs/UserPrefs.xml

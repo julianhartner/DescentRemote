@@ -31,7 +31,7 @@
     display: grid;
     grid-template-columns: 280px;
     grid-template-rows: 190px 20px 20px 50px 20px 20px 20px 20px 30px;
-    grid-template-areas: "image" "attributes" "name" "specials" "stats_header" "stats_2player" "stats_3player" "stats_4player" "extras";
+    grid-template-areas: "lieutenant-image" "attributes" "name" "specials" "stats_header" "stats_2player" "stats_3player" "stats_4player" "extras";
     border-radius: 18px;
     background: white;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
@@ -47,10 +47,8 @@
 .monster-card {
     display: grid;
     grid-template-columns: 280px;
-    /*grid-template-rows: 20px 50px 20px 170px 20px 20px 20px 50px 20px;
-    grid-template-areas: "monster_stats" "specials" "monster_dice" "image" "name" "monster_extras" "monster_dice" "specials" "monster_stats";*/
     grid-template-rows: 20px 50px 20px 170px 20px 20px 20px 50px 20px;
-    grid-template-areas: "monster_stats_minion" "specials_minion" "monster_dice_minion" "image" "name" "monster_extras" "monster_dice_master" "specials_master" "monster_stats_master";
+    grid-template-areas: "monster_stats_minion" "specials_minion" "monster_dice_minion" "monster-image" "name" "monster_extras" "monster_dice_master" "specials_master" "monster_stats_master";
     border-radius: 18px;
     background: white;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
@@ -108,22 +106,39 @@
     grid-area: extras;
 }
 
-.card-image {
-    grid-area: image;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+.lieutenant-card-image {
+    grid-area: lieutenant-image;
     background-size: cover;
     width: inherit;
 }
 
-.card-image-container {
+.monster-card-image {
+    grid-area: monster-image;
+    background-size: cover;
+    width: inherit;
+}
+
+.lieutenant-card-image-container {
     display: inline-block;
     overflow: hidden;
     width: 100%;
     width: inherit;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
-.card-name h2 {
+.monster-card-image-container {
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    width: inherit;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.card-name span {
     margin-top: 0px;
     font-size: 20px;
 }
@@ -132,6 +147,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .card-stats {
@@ -160,7 +177,7 @@
 .card-monster-extras {
     grid-area: monster_extras;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
 }
 
@@ -175,4 +192,6 @@
 .button-switch-act {
     position: relative !important;
     z-index: 10;
+    border-radius: 50%;
+    max-width: 45px;
 }

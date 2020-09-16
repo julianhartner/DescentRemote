@@ -194,8 +194,8 @@ function BuildLieutenantCard(lieutenant, act, actNumber, displayed) {
     }
 
     // Image of the Lieutenant
-    htmlArr.push("<div class=\"card-image-container\">");
-    htmlArr.push("<img class=\"card-image\" src=\"" + lieutenant.location + "\">")
+    htmlArr.push("<div class=\"lieutenant-card-image-container\">");
+    htmlArr.push("<img class=\"lieutenant-card-image\" src=\"" + lieutenant.location + "\">")
     htmlArr.push("</div>")
 
     // Attributes of the Lieutenant
@@ -212,13 +212,13 @@ function BuildLieutenantCard(lieutenant, act, actNumber, displayed) {
 
     // Name of the Lieutenant
     htmlArr.push("<div class=\"card-name\">");
-    htmlArr.push("<h2>" + lieutenant.name + "</h2>")
+    htmlArr.push("<span>" + lieutenant.name + "</span>")
     htmlArr.push("</div>");
 
     // Specials of the Lieutenant
     htmlArr.push("<div class=\"card-specials\">");
     $.each(act.specials, function (key, special) {
-        htmlArr.push("<span>" + special.cost + ":" + special.name + "</span>");
+        htmlArr.push("<span class=\"card-special-item\">" + special.cost + ":" + special.name + "</span>");
     });
     htmlArr.push("</div>");
 
@@ -277,7 +277,7 @@ function BuildMonsterCard(monster, act, actNumber, displayed) {
     // Specials of the minion Monster
     htmlArr.push("<div class=\"card-specials\">");
     $.each(act.specialsMinion, function (key, special) {
-        htmlArr.push("<span>" + special.cost + ":" + special.name + "</span>");
+        htmlArr.push("<span class=\"card-special-item\">" + special.cost + ":" + special.name + "</span>");
     });
     htmlArr.push("</div>");
 
@@ -287,8 +287,8 @@ function BuildMonsterCard(monster, act, actNumber, displayed) {
     htmlArr.push("</div>")
 
     // Image of the Monster
-    htmlArr.push("<div class=\"card-image-container\">");
-    htmlArr.push("<img class=\"card-image\" src=\"" + monster.location + "\">")
+    htmlArr.push("<div class=\"monster-card-image-container\">");
+    htmlArr.push("<img class=\"monster-card-image\" src=\"" + monster.location + "\">")
     htmlArr.push("</div>")
 
     // Card Extras
@@ -299,7 +299,7 @@ function BuildMonsterCard(monster, act, actNumber, displayed) {
 
     // Name of the Monster
     htmlArr.push("<div class=\"card-name\">");
-    htmlArr.push("<h2>" + monster.name + "</h2>")
+    htmlArr.push("<span>" + monster.name + "</span>")
     htmlArr.push("</div>");
 
     // Master attack dice
@@ -310,7 +310,7 @@ function BuildMonsterCard(monster, act, actNumber, displayed) {
     // Specials of the master Monster
     htmlArr.push("<div class=\"card-specials\">");
     $.each(act.specialsMaster, function (key, special) {
-        htmlArr.push("<span>" + special.cost + ":" + special.name + "</span>");
+        htmlArr.push("<span class=\"card-special-item\">" + special.cost + ":" + special.name + "</span>");
     });
     htmlArr.push("</div>");
 

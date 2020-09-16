@@ -34,21 +34,21 @@
         <div class="card-specials">
             @foreach (var special in card.Act1.SpecialsMinion)
             {
-                <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+                <span class="card-special-item">@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
             }
         </div>
         <div class="card-monster-dice">
             <span>@card.Act1.AttackDiceMinion.First()</span>
         </div>
-        <div class="card-image-container">
-            <img class="card-image" src="@card.Location">
+        <div class="monster-card-image-container">
+            <img class="monster-card-image" src="@card.Location">
         </div>
         <div class="card-monster-extras">
             <span>@card.AttackType</span>
             <button id="@($"button_{card.Id}_1")" class="button-switch-act" onclick="SwitchAct(this)">Act 1</button>
         </div>
         <div class="card-name">
-            <h2>@card.Name</h2>
+            <span>@card.Name</span>
         </div>
         <div class="card-monster-dice">
             <span>@card.Act1.AttackDiceMaster.First()</span>
@@ -56,7 +56,7 @@
         <div class="card-specials">
             @foreach (var special in card.Act1.SpecialsMaster)
             {
-                <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+                <span class="card-special-item">@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
             }
         </div>
         <div class="card-monster-stats">
@@ -80,21 +80,21 @@
         <div class="card-specials">
             @foreach (var special in card.Act1.SpecialsMinion)
             {
-                <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+                <span class="card-special-item">@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
             }
         </div>
         <div class="card-monster-dice">
             <span>@card.Act2.AttackDiceMinion.First()</span>
         </div>
-        <div class="card-image-container">
-            <img class="card-image" src="@card.Location">
+        <div class="monster-card-image-container">
+            <img class="monster-card-image" src="@card.Location">
         </div>
         <div class="card-monster-extras">
             <span>@card.AttackType</span>
             <button id="@($"button_{card.Id}_2")" class="button-switch-act" onclick="SwitchAct(this)">Act 1</button>
         </div>
         <div class="card-name">
-            <h2>@card.Name</h2>
+            <span>@card.Name</span>
         </div>
         <div class="card-monster-dice">
             <span>@card.Act2.AttackDiceMaster.First()</span>
@@ -102,7 +102,7 @@
         <div class="card-specials">
             @foreach (var special in card.Act2.SpecialsMaster)
             {
-                <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+                <span class="card-special-item">@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
             }
         </div>
         <div class="card-monster-stats">
@@ -123,8 +123,8 @@
     @foreach (var card in Model.Lieutenants)
     {
         <div id="@($"card_{card.Id}_1")" class="lieutenant-card" onclick="SelectCard(this)">
-            <div class="card-image-container">
-                <img class="card-image" src="@card.Location">
+            <div class="lieutenant-card-image-container">
+                <img class="lieutenant-card-image" src="@card.Location">
             </div>
             <div class="card-attributes">
                 <span>Might</span>
@@ -137,12 +137,12 @@
                 <span>@card.Act1.Awareness</span>
             </div>
             <div class="card-name">
-                <h2>@card.Name</h2>
+                <span>@card.Name</span>
             </div>
             <div class="card-specials">
                 @foreach (var special in card.Act1.Specials)
                 {
-                    <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+                    <span class="card-special-item">@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
                 }
             </div>
             <div class="card-stats-header card-stats">
@@ -167,8 +167,8 @@
             </div>
         </div>
         <div id="@($"card_{card.Id}_2")" class="lieutenant-card" onclick="SelectCard(this)" hidden=true>
-            <div class="card-image-container">
-                <img class="card-image" src="@card.Location">
+            <div class="lieutenant-card-image-container">
+                <img class="lieutenant-card-image" src="@card.Location">
             </div>
             <div class="card-attributes">
                 <span>Might</span>
@@ -181,12 +181,12 @@
                 <span>@card.Act2.Awareness</span>
             </div>
             <div class="card-name">
-                <h2>@card.Name</h2>
+                <span>@card.Name</span>
             </div>
             <div class="card-specials">
                 @foreach (var special in card.Act2.Specials)
                 {
-                    <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+                    <span class="card-special-item">@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
                 }
             </div>
             <div class="card-stats-header card-stats">
