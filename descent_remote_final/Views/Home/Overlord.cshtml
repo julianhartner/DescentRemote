@@ -1,0 +1,244 @@
+﻿@model descent_remote_final.ViewModels.OverlordUserViewModel
+
+@{
+    ViewData["Title"] = "Overlord";
+    Layout = "~/Views/Shared/_PlayerLayout.cshtml";
+}
+
+
+
+<h2>Hand:</h2>
+<div class="row card-list-container">
+    @*@foreach (var card in Model.OverlordCards)
+    {
+        <div id="@card.Id" class="card-container">
+            <img class="card-image" src="@card.Location" />
+        </div>
+    }*@
+</div>
+
+<h2>Monsters:</h2>
+<button id="add-monsters-button" onclick="OpenMonstersPopup()">Add</button>
+<div id="monster-card-list" class="row card-list-container">
+    @foreach (var card in Model.Monsters)
+    {
+    <div id="@($"card_{card.Id}_1")" class="monster-card" onclick="SelectCard(this)">
+        <div class="card-monster-stats">
+            <span>Speed</span>
+            <span>@card.Act1.SpeedMinion</span>
+            <span>Health</span>
+            <span>@card.Act1.HealthMinion</span>
+            <span>Defense</span>
+            <span>@card.Act1.DefenseDiceMinion.First()</span>
+        </div>
+        <div class="card-specials">
+            @foreach (var special in card.Act1.SpecialsMinion)
+            {
+                <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+            }
+        </div>
+        <div class="card-monster-dice">
+            <span>@card.Act1.AttackDiceMinion.First()</span>
+        </div>
+        <div class="card-image-container">
+            <img class="card-image" src="@card.Location">
+        </div>
+        <div class="card-monster-extras">
+            <span>@card.AttackType</span>
+            <button id="@($"button_{card.Id}_1")" class="button-switch-act" onclick="SwitchAct(this)">Act 1</button>
+        </div>
+        <div class="card-name">
+            <h2>@card.Name</h2>
+        </div>
+        <div class="card-monster-dice">
+            <span>@card.Act1.AttackDiceMaster.First()</span>
+        </div>
+        <div class="card-specials">
+            @foreach (var special in card.Act1.SpecialsMaster)
+            {
+                <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+            }
+        </div>
+        <div class="card-monster-stats">
+            <span>Speed</span>
+            <span>@card.Act1.SpeedMaster</span>
+            <span>Health</span>
+            <span>@card.Act1.HealthMaster</span>
+            <span>Defense</span>
+            <span>@card.Act1.DefenseDiceMaster.First()</span>
+        </div>
+    </div>
+    <div id="@($"card_{card.Id}_2")" class="monster-card" onclick="SelectCard(this)">
+        <div class="card-monster-stats">
+            <span>Speed</span>
+            <span>@card.Act2.SpeedMinion</span>
+            <span>Health</span>
+            <span>@card.Act2.HealthMinion</span>
+            <span>Defense</span>
+            <span>@card.Act2.DefenseDiceMinion.First()</span>
+        </div>
+        <div class="card-specials">
+            @foreach (var special in card.Act1.SpecialsMinion)
+            {
+                <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+            }
+        </div>
+        <div class="card-monster-dice">
+            <span>@card.Act2.AttackDiceMinion.First()</span>
+        </div>
+        <div class="card-image-container">
+            <img class="card-image" src="@card.Location">
+        </div>
+        <div class="card-monster-extras">
+            <span>@card.AttackType</span>
+            <button id="@($"button_{card.Id}_2")" class="button-switch-act" onclick="SwitchAct(this)">Act 1</button>
+        </div>
+        <div class="card-name">
+            <h2>@card.Name</h2>
+        </div>
+        <div class="card-monster-dice">
+            <span>@card.Act2.AttackDiceMaster.First()</span>
+        </div>
+        <div class="card-specials">
+            @foreach (var special in card.Act2.SpecialsMaster)
+            {
+                <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+            }
+        </div>
+        <div class="card-monster-stats">
+            <span>Speed</span>
+            <span>@card.Act2.SpeedMaster</span>
+            <span>Health</span>
+            <span>@card.Act2.HealthMaster</span>
+            <span>Defense</span>
+            <span>@card.Act2.DefenseDiceMaster.First()</span>
+        </div>
+    </div>
+    }
+</div>
+
+<h2>Lieutenants:</h2>
+<button id="add-lieutenants-button" onclick="OpenLieutenantsPopup()">Add</button>
+<div id="lieutenant-card-list" class="row card-list-container">
+    @foreach (var card in Model.Lieutenants)
+    {
+        <div id="@($"card_{card.Id}_1")" class="lieutenant-card" onclick="SelectCard(this)">
+            <div class="card-image-container">
+                <img class="card-image" src="@card.Location">
+            </div>
+            <div class="card-attributes">
+                <span>Might</span>
+                <span>@card.Act1.Might</span>
+                <span>Knowledge</span>
+                <span>@card.Act1.Knowledge</span>
+                <span>Willpower</span>
+                <span>@card.Act1.Willpower</span>
+                <span>Awareness</span>
+                <span>@card.Act1.Awareness</span>
+            </div>
+            <div class="card-name">
+                <h2>@card.Name</h2>
+            </div>
+            <div class="card-specials">
+                @foreach (var special in card.Act1.Specials)
+                {
+                    <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+                }
+            </div>
+            <div class="card-stats-header card-stats">
+                <span></span>
+                <span>Speed</span>
+                <span>Health</span>
+                <span>Dice</span>
+            </div>
+            @foreach (var stat in card.Act1.Stats)
+            {
+                <div class="@($"card-stats-{stat.NumberOfHeroes}player") card-stats">
+                    <span>@stat.NumberOfHeroes Player</span>
+                    <span>@stat.Speed</span>
+                    <span>@stat.Health</span>
+                    <span>@stat.DefenseDice.First()</span>
+                </div>
+            }
+            <div class="card-extras">
+                <span>@card.AttackType.ToString()</span>
+                <span>@card.Act1.AttackDice.First()</span>
+                <button id="@($"button_{card.Id}_1")" class="button-switch-act" onclick="SwitchAct(this)">Act 1</button>
+            </div>
+        </div>
+        <div id="@($"card_{card.Id}_2")" class="lieutenant-card" onclick="SelectCard(this)" hidden=true>
+            <div class="card-image-container">
+                <img class="card-image" src="@card.Location">
+            </div>
+            <div class="card-attributes">
+                <span>Might</span>
+                <span>@card.Act2.Might</span>
+                <span>Knowledge</span>
+                <span>@card.Act2.Knowledge</span>
+                <span>Willpower</span>
+                <span>@card.Act2.Willpower</span>
+                <span>Awareness</span>
+                <span>@card.Act2.Awareness</span>
+            </div>
+            <div class="card-name">
+                <h2>@card.Name</h2>
+            </div>
+            <div class="card-specials">
+                @foreach (var special in card.Act2.Specials)
+                {
+                    <span>@((special.Cost == null ? $"{special.Cost}:" : "") + special.Name)</span>
+                }
+            </div>
+            <div class="card-stats-header card-stats">
+                <span></span>
+                <span>Speed</span>
+                <span>Health</span>
+                <span>Dice</span>
+            </div>
+            @foreach (var stat in card.Act2.Stats)
+            {
+                <div class="@($"card-stats-{stat.NumberOfHeroes}player") card-stats">
+                    <span>@stat.NumberOfHeroes Player</span>
+                    <span>@stat.Speed</span>
+                    <span>@stat.Health</span>
+                    <span>@stat.DefenseDice.First()</span>
+                </div>
+            }
+            <div class="card-extras">
+                <span>@card.AttackType.ToString()</span>
+                <span>@card.Act2.AttackDice.First()</span>
+                <button id="@($"button_{card.Id}_2")" class="button-switch-act" onclick="SwitchAct(this)">Act 2</button>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="popup" id="choose-lieutenants-popup">
+    <div class="popup-content">
+        <h2>Choose Lieutenants</h2>
+        <div id="popup-lieutenant-card-list" class="card-list">
+
+        </div>
+        <div class="clearfix"></div>
+        <button id="popup-add-button" onclick="CloseLieutenantsPopup()">Add</button>
+    </div>
+</div>
+
+<div class="popup" id="choose-monsters-popup">
+    <div class="popup-content">
+        <h2>Choose Monsters</h2>
+        <div id="popup-monster-card-list" class="card-list">
+
+        </div>
+        <div class="clearfix"></div>
+        <button id="popup-add-button" onclick="CloseMonstersPopup()">Add</button>
+    </div>
+</div>
+
+@section css {
+    <link rel="stylesheet" href="~/css/overlord.css" />
+}
+
+@section Scripts {
+    <script src="~/js/overlord.js" asp-append-version="true"></script>
+}

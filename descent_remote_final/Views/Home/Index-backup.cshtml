@@ -1,0 +1,163 @@
+﻿@model descent_remote_final.ViewModels.DashboardUserViewModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@Html.AntiForgeryToken()
+
+@{
+    ViewData["Title"] = "- " + Model.Name;
+}
+
+<h1>@Model.Name - @Model.Character.Name</h1>
+
+<div class="row">
+    <div class="col-md-3">
+        <img class="character-img" src="~/images/characters/Grisban_the_thirsty_full.jpg" />
+    </div>
+    <div class="col-md-1">
+        <dl class="row">
+            <dt class="col-sm-10">
+                @Html.DisplayNameFor(model => model.Character.Might)
+            </dt>
+            <dd class="col-sm-2">
+                @Html.DisplayFor(model => model.Character.Might)
+            </dd>
+            <dt class="col-sm-10">
+                @Html.DisplayNameFor(model => model.Character.Willpower)
+            </dt>
+            <dd class="col-sm-2">
+                @Html.DisplayFor(model => model.Character.Willpower)
+            </dd>
+            <dt class="col-sm-10">
+                @Html.DisplayNameFor(model => model.Character.Knowledge)
+            </dt>
+            <dd class="col-sm-2">
+                @Html.DisplayFor(model => model.Character.Knowledge)
+            </dd>
+            <dt class="col-sm-10">
+                @Html.DisplayNameFor(model => model.Character.Awareness)
+            </dt>
+            <dd class="col-sm-2">
+                @Html.DisplayFor(model => model.Character.Awareness)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-1">
+        <dl class="row">
+            <dt class="col-sm-10">
+                @Html.DisplayNameFor(model => model.Character.Speed)
+            </dt>
+            <dd class="col-sm-2">
+                @Html.DisplayFor(model => model.Character.Speed)
+            </dd>
+            <dt class="col-sm-10">
+                @Html.DisplayNameFor(model => model.Character.Health)
+            </dt>
+            <dd class="col-sm-2">
+                <p id="currentHealth">@Html.DisplayFor(model => model.Character.CurrentHealth)</p>/<p id="totalHealth">@Html.DisplayFor(model => model.Character.Health)</p>
+                <button id="addHealth" onclick="addHealth()">+</button>
+                <button id="removeHealth" onclick="removeHealth()">-</button>
+            </dd>
+            <dt class="col-sm-10">
+                @Html.DisplayNameFor(model => model.Character.Stamina)
+            </dt>
+            <dd class="col-sm-2">
+                <p id="currentStamina">@Html.DisplayFor(model => model.Character.CurrentStamina)</p>/<p id="totalStamina">@Html.DisplayFor(model => model.Character.Stamina)</p>
+                <button id="addStamina" onclick="addStamina()">+</button>
+                <button id="removeStamina" onclick="removeStamina()">-</button>
+            </dd>
+            <dt class="col-sm-10">
+                @Html.DisplayNameFor(model => model.Character.DefenseDice.FirstOrDefault())
+            </dt>
+            <dd class="col-sm-2">
+                @Html.DisplayFor(model => model.Character.DefenseDice.FirstOrDefault())
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <p><b>Hero Ability:</b></p>
+        @Html.DisplayFor(model => model.Character.HeroAbility)
+    </div>
+    <div class="col-md-3">
+        <p><b>Heroic Feat:</b></p>
+        @Html.DisplayFor(model => model.Character.HeroicFeat)
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var card in Model.FamiliarCards)
+    {
+    <div id="@card.Id" class="card-container">
+        <div class="gallery">
+            @if (card.CurrentHealth <= 0)
+            {
+            <img class="card-image exhausted" src="@card.Location" />
+            }
+            else
+            {
+            <img class="card-image" src="@card.Location" />
+            }
+            <div class="familiar-health-container">
+                <p id="@card.CurrentHealthId" class="familiar-current-health">@card.CurrentHealth</p>
+                <span class="familiar-health-slash"></span>
+                <p id="@card.HealthId" class="familiar-health">@card.Health</p>
+            </div>
+            <div class="middle">
+                @if (card.CurrentHealth <= 0)
+                {
+                <button id="@card.AddHealthId" class="exhaust-button" onclick="addFamiliarHealth(this)" hidden>+</button>
+                <button id="@card.RemoveHealthId" class="exhaust-button" onclick="removeFamiliarHealth(this)" hidden>-</button>
+                <button id="@card.ReviveId" class="exhaust-button" onclick="reviveFamiliar(this)">Revive</button>
+                }
+                else
+                {
+                <button id="@card.AddHealthId" class="exhaust-button" onclick="addFamiliarHealth(this)">+</button>
+                <button id="@card.RemoveHealthId" class="exhaust-button" onclick="removeFamiliarHealth(this)">-</button>
+                <button id="@card.ReviveId" class="exhaust-button" onclick="reviveFamiliar(this)" hidden>Revive</button>
+                }
+
+            </div>
+        </div>
+    </div>
+    }
+    @foreach (var card in Model.SkillCards)
+    {
+    <div id="@card.Id" class="card-container">
+        <div class="gallery">
+            <img class="card-image" src="@card.Location" />
+            <div class="middle">
+                <button id="@card.ExhaustButtonId" class="exhaust-button" onclick="exhaustCard(this)">Exhaust</button>
+                <button id="@card.RefreshButtonId" class="exhaust-button" onclick="refreshCard(this)" hidden>Refresh</button>
+            </div>
+        </div>
+    </div>
+    }
+    @foreach (var card in Model.ShopCards)
+    {
+    <div id="@card.Id" class="card-container">
+        <div class="gallery">
+            <img class="card-image" src="@card.Location" />
+            <span class="equipped-circle" hidden></span>
+            <div class="middle">
+                <button id="@card.ExhaustButtonId" class="exhaust-button" onclick="exhaustCard(this)">Exhaust</button>
+                <button id="@card.RefreshButtonId" class="exhaust-button" onclick="refreshCard(this)" hidden>Refresh</button>
+                <button id="@card.EquipButtonId" class="exhaust-button" onclick="equipCard(this)">Equip</button>
+                <button id="@card.UnequipButtonId" class="exhaust-button" onclick="unequipCard(this)" hidden>Unequip</button>
+            </div>
+        </div>
+    </div>
+    }
+    @foreach (var card in Model.ClassEquipmentCards)
+    {
+    <div id="@card.Id" class="card-container">
+        <div class="gallery">
+            <img class="card-image" src="@card.Location" />
+            <span class="equipped-circle" hidden></span>
+            <div class="middle">
+                <button id="@card.ExhaustButtonId" class="exhaust-button" onclick="exhaustCard(this)">Exhaust</button>
+                <button id="@card.RefreshButtonId" class="exhaust-button" onclick="refreshCard(this)" hidden>Refresh</button>
+                <button id="@card.EquipButtonId" class="exhaust-button" onclick="equipCard(this)">Equip</button>
+                <button id="@card.UnequipButtonId" class="exhaust-button" onclick="unequipCard(this)" hidden>Unequip</button>
+            </div>
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,132 @@
+﻿.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+    background-color: blueviolet;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 85%;
+}
+
+.act-header {
+    float: none; 
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 280px;
+    grid-template-rows: 190px 20px 20px 50px 20px 20px 20px 20px 30px;
+    grid-template-areas: "image" "attributes" "name" "specials" "stats_header" "stats_2player" "stats_3player" "stats_4player" "extras";
+    border-radius: 18px;
+    background: white;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    font-family: roboto;
+    text-align: center;
+    height: 390px;
+    width: 280px;
+    float: left;
+    margin: 5px;
+    font-size: 13px;
+}
+
+.card:hover {
+    background-color: lightgray;
+}
+
+.card-selected {
+    background-color: lightgray;
+}
+
+.card-attributes {
+    grid-area: attributes;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.card-name {
+    grid-area: name;
+}
+
+.card-specials {
+    grid-area: specials;
+}
+
+.card-stats-header {
+    grid-area: stats_header;
+}
+
+.card-stats-2player {
+    grid-area: stats_2player;
+}
+
+.card-stats-3player {
+    grid-area: stats_3player;
+}
+
+.card-stats-4player {
+    grid-area: stats_4player;
+    border-bottom-left-radius: 17px;
+    border-bottom-right-radius: 17px;
+}
+
+.card-extras {
+    grid-area: extras;
+}
+
+.card-image {
+    grid-area: image;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+    width: inherit;
+}
+
+.card-image-container {
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    width: inherit;
+}
+
+.card-name h2 {
+    margin-top: 0px;
+    font-size: 20px;
+}
+
+.card-specials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.card-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.card-extras {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.card-stats .stat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+}

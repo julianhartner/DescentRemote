@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.161
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "descent_remote_final", "descent_remote_final\descent_remote_final.csproj", "{08DEF0B7-FDC3-4E36-9B6D-E3579072B110}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08DEF0B7-FDC3-4E36-9B6D-E3579072B110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08DEF0B7-FDC3-4E36-9B6D-E3579072B110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08DEF0B7-FDC3-4E36-9B6D-E3579072B110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08DEF0B7-FDC3-4E36-9B6D-E3579072B110}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B068D1FE-772F-4F77-A187-8CAF3A45BE39}
+	EndGlobalSection
+EndGlobal

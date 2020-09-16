@@ -1,0 +1,85 @@
+﻿@model descent_remote_final.ViewModels.UserEditViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="admin-site">
+    <h1>Create</h1>
+
+    <h4>UserEditViewModel</h4>
+    <hr />
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CharacterName" class="control-label">Character</label>
+            <input asp-for="CharacterName" class="form-control" />
+            <span asp-validation-for="CharacterName" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <label asp-for="SkillCards" class="control-label"><b>Skill Cards</b></label>
+                <div class="form-group">
+                    @for (int i = 0; i < Model.SkillCards.Count; i++)
+                    {
+                        <div class="checkbox">
+                            <label><input type="checkbox" asp-for="@Model.SkillCards[i].Selected" value="true" /> @Model.SkillCards[i].DisplayName</label>
+                            <input asp-for="@Model.SkillCards[i].DisplayName" hidden />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-sm">
+                <label asp-for="ClassEquipmentCards" class="control-label"><b>Class Equipment Cards</b></label>
+                <div class="form-group">
+                    @for (int i = 0; i < Model.ClassEquipmentCards.Count; i++)
+                    {
+                        <div class="checkbox">
+                            <label><input type="checkbox" asp-for="@Model.ClassEquipmentCards[i].Selected" value="true" /> @Model.ClassEquipmentCards[i].DisplayName</label>
+                            <input asp-for="@Model.ClassEquipmentCards[i].DisplayName" hidden />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-sm">
+                <label asp-for="ShopCards" class="control-label"><b>Shop Cards</b></label>
+                <div class="form-group">
+                    @for (int i = 0; i < Model.ShopCards.Count; i++)
+                    {
+                        <div class="checkbox">
+                            <label><input type="checkbox" asp-for="@Model.ShopCards[i].Selected" value="true" /> @Model.ShopCards[i].DisplayName</label>
+                            <input asp-for="@Model.ShopCards[i].DisplayName" hidden />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-sm">
+                <label asp-for="FamiliarCards" class="control-label"><b>Familiar Cards</b></label>
+                <div class="form-group">
+                    @for (int i = 0; i < Model.FamiliarCards.Count; i++)
+                    {
+                        <div class="checkbox">
+                            <label><input type="checkbox" asp-for="@Model.FamiliarCards[i].Selected" value="true" /> @Model.FamiliarCards[i].DisplayName</label>
+                            <input asp-for="@Model.FamiliarCards[i].DisplayName" hidden />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
