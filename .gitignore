@@ -1,0 +1,10 @@
+descent_remote_final/obj/
+.vscode/tasks.json
+.vscode/launch.json
+.vs/descent_remote_final/xs/UserPrefs.xml
+.vs/descent_remote_final/v16/Server/sqlite3/storage.ide
+.vs/descent_remote_final/v16/.suo
+.vs/descent_remote_final/DesignTimeBuild/.dtbcache.v2
+.vs/descent_remote_final/DesignTimeBuild/.dtbcache
+.vs/descent_remote_final/config/applicationhost.config
+.cr/personal/Editor/Painting/Structural Highlighting.xml
