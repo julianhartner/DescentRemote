@@ -8,58 +8,76 @@ $(document).ready(
 );
 
 function substituteIcons() {
-    var spans = $('span:contains("++")');
+    var replacements = {
+        "%HEART%": "<img src=\"/images/icons/heart.png\"/>",
+        "%ACTION%": "<img src=\"/images/icons/action.png\"/>",
+        "%FATIGUE%": "<img src=\"/images/icons/fatigue.png\"/>",
+        "%SHIELD%": "<img src=\"/images/icons/shield.png\"/>",
+    }
+    var spans = $('span:contains("%")');
     for (var i = 0; i < spans.length; i++) {
-        var currSpan = spans[i]
+        var currSpan = spans[i];
+        var htmlContent = currSpan.innerHTML;
 
-        // Split the text
-        var splitted = currSpan.textContent.split(" ");
-        var currString = "";
-        var htmlParts = [];
+        var htmlContent = htmlContent.replace(/%\w+%/g, function(all) {
+            return replacements[all] || all;
+        });
 
-        for (var j = 0; j < splitted.length; j++) {
-            var currWord = splitted[j];
-            if (currWord.length == 0 || currWord == "/n")
-                continue;
+        var newSpan = document.createElement("span");
+        newSpan.innerHTML = htmlContent;
 
-            if (currWord.includes("++")) {
-                var img = new Image();
-                switch (currWord.substring(2, currWord.length-2)) {
-                    case "damage":
-                        img.src = "/images/icons/damage.png"
-                        break;
-                    case "action":
-                        img.src = "/images/icons/action.png"
-                        break;
-                    case "fatigue":
-                        img.src = "/images/icons/fatigue.png"
-                        break;
-                    default:
-                        break;
-                }
+        var parent = currSpan.parentElement;
+        parent.replaceChild(newSpan, currSpan);
 
-                var span = document.createElement("span");
-                span.textContent = currString + " ";
-                htmlParts.push(span);
-                htmlParts.push(img);
-                currString = "";
-            }
-            else {
-                currString = currString + " " + splitted[j];
-            }
-        }
+        // // Split the text
+        // var splitted = currSpan.innerHTML.split(" ");
+        // var currString = "";
+        // var htmlParts = [];
 
-        var span = document.createElement("span");
-        span.textContent = currString;
-        htmlParts.push(span);
+        // for (var j = 0; j < splitted.length; j++) {
+        //     var currWord = splitted[j];
+        //     if (currWord.length == 0 || currWord == "/n")
+        //         continue;
+
+        //     if (currWord.includes("++")) {
+        //         var img = new Image();
+
+        //         switch (currWord.substring(2, currWord.length-2)) {
+        //             case "heart":
+        //                 img.src = "/images/icons/heart.png"
+        //                 break;
+        //             case "action":
+        //                 img.src = "/images/icons/action.png"
+        //                 break;
+        //             case "fatigue":
+        //                 img.src = "/images/icons/fatigue.png"
+        //                 break;
+        //             default:
+        //                 break;
+        //         }
+
+        //         var span = document.createElement("span");
+        //         span.textContent = currString + " ";
+        //         htmlParts.push(span);
+        //         htmlParts.push(img);
+        //         currString = "";
+        //     }
+        //     else {
+        //         currString = currString + " " + splitted[j];
+        //     }
+        // }
+
+        // var span = document.createElement("span");
+        // span.textContent = currString;
+        // htmlParts.push(span);
 
         // Wrap content with a div container
-        var container = document.createElement("div");
-        for (var j = 0; j < htmlParts.length; j++)
-            container.appendChild(htmlParts[j]);
+        // var container = document.createElement("div");
+        // for (var j = 0; j < htmlParts.length; j++)
+        //     container.appendChild(htmlParts[j]);
         
-        var parent = currSpan.parentElement;
-        parent.replaceChild(container, currSpan);
+        // var parent = currSpan.parentElement;
+        // parent.replaceChild(container, currSpan);
     }
 }
 
