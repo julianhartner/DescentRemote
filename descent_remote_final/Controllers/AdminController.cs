@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using descent_remote_final.Constants;
 using descent_remote_final.Models;
+using descent_remote_final.Models.Lieutenants;
+using descent_remote_final.Models.Monsters;
 using descent_remote_final.Services;
 using descent_remote_final.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -71,6 +73,13 @@ namespace descent_remote_final.Controllers
                 user.ShopCards = new List<ShopCard>();
                 user.ClassEquipmentCards = new List<ClassEquipmentCard>();
                 user.FamiliarCards = new List<FamiliarCard>();
+                user.OverlordCards = new List<OverlordCard>();
+                user.RemainingOverlordCards = new List<OverlordCard>();
+                user.HandOverlordCards = new List<OverlordCard>();
+                user.DiscardedOverlordCards = new List<OverlordCard>();
+                // user.Lieutenants = new List<Lieutenant>();
+                // user.Monsters = new List<Monster>();
+                user.OverlordRelics = new List<OverlordRelicCard>();
 
                 // Set newly selected SkillCards based on user selection in the UI
                 var allSkillCards = skillCardService.Get();

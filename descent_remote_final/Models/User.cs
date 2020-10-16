@@ -56,7 +56,7 @@ namespace descent_remote_final.Models
         [BsonIgnore]
         public IList<Monster> Monsters { get; set; }
 
-        [BsonIgnore]
+        [BsonElement("overlord_relics")]
         public IList<OverlordRelicCard> OverlordRelics { get; set; }
 
         public bool HasSkillCard(SkillCard card)

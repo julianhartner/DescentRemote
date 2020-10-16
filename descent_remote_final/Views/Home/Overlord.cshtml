@@ -68,7 +68,7 @@
             <span>@card.Act1.DefenseDiceMaster.First()</span>
         </div>
     </div>
-    <div id="@($"card_{card.Id}_2")" class="monster-card" onclick="SelectCard(this)">
+    <div id="@($"card_{card.Id}_2")" class="monster-card" onclick="SelectCard(this)" hidden=true>
         <div class="card-monster-stats">
             <span>Speed</span>
             <span>@card.Act2.SpeedMinion</span>
@@ -91,7 +91,7 @@
         </div>
         <div class="card-monster-extras">
             <span>@card.AttackType</span>
-            <button id="@($"button_{card.Id}_2")" class="button-switch-act" onclick="SwitchAct(this)">Act 1</button>
+            <button id="@($"button_{card.Id}_2")" class="button-switch-act" onclick="SwitchAct(this)">Act 2</button>
         </div>
         <div class="card-name">
             <span>@card.Name</span>
