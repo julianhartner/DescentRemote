@@ -21,35 +21,19 @@ namespace descent_remote_final.Controllers
 
         public IActionResult Index()
         {
-            string id = null;
-            id = Request.Cookies["id"];
+            return View(_gameHandler.Users);
+        }
 
-            if (id == null)
-            {
-                return RedirectToAction(nameof(Select));
-            }
-
-            var user = _gameHandler.Users.FirstOrDefault(u => u.Id == id);
+        public IActionResult Character(string username)
+        {
+            var user = _gameHandler.Users.FirstOrDefault(u => u.Name == username);
             return View(new DashboardUserViewModel(user));
         }
 
-        public IActionResult Overlord()
+        public IActionResult Overlord(string username)
         {
-            string id = null;
-            id = Request.Cookies["id"];
-
-            if (id == null)
-            {
-                return RedirectToAction(nameof(Select));
-            }
-
-            var user = _gameHandler.Users.FirstOrDefault(u => u.Id == id);
+            var user = _gameHandler.Users.FirstOrDefault(u => u.Name == username);
             return View(new OverlordUserViewModel(user));
-        }
-
-        public IActionResult Select()
-        {
-            return View(_gameHandler.Users);
         }
 
         public IActionResult Cookie(string id)

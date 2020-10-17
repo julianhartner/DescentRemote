@@ -13,6 +13,7 @@ namespace descent_remote_final.ViewModels
         public OverlordUserViewModel(User user)
         {
             Id = user.Id;
+            Name = user.Name;
             OverlordCards = user.OverlordCards;
             RemainingOverlordCards = user.RemainingOverlordCards;
             HandOverlordCards = user.HandOverlordCards;
@@ -23,6 +24,7 @@ namespace descent_remote_final.ViewModels
         }
 
         public string Id { get; set; }
+        public string Name { get; set; }
         public IList<OverlordCard> OverlordCards { get; set; }
         public IList<OverlordCard> RemainingOverlordCards { get; set; }
         public IList<OverlordCard> HandOverlordCards { get; set; }

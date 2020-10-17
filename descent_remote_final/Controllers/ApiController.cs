@@ -337,6 +337,11 @@ namespace descent_remote_final.Controllers
             return Json(_gameHandler.Monsters);
         }
 
+        public ActionResult GetUsers()
+        {
+            return Json(_gameHandler.Users.Select(u => u.Name).ToArray());
+        }
+
         public ActionResult AddLieutenant(string userId, string lieutenantId)
         {
             if (userId == "" || lieutenantId == null || lieutenantId == "")
