@@ -19,6 +19,7 @@ namespace descent_remote_final.Controllers
         private readonly SkillCardService skillCardService;
         private readonly ClassEquipmentCardService classEquipmentCardService;
         private readonly FamiliarCardService familiarCardService;
+        private readonly CharacterService characterService;
         private readonly GameHandler _gameHandler;
 
         public AdminController(UserService userService, 
@@ -26,7 +27,8 @@ namespace descent_remote_final.Controllers
             SkillCardService skillCardService, 
             ClassEquipmentCardService classEquipmentCardService, 
             FamiliarCardService familiarCardService,
-            GameHandler gameHandler)
+            GameHandler gameHandler,
+            CharacterService characterService)
         {
             this.userService = userService;
             this.shopCardService = shopCardService;
@@ -34,6 +36,7 @@ namespace descent_remote_final.Controllers
             this.classEquipmentCardService = classEquipmentCardService;
             this.familiarCardService = familiarCardService;
             this._gameHandler = gameHandler;
+            this.characterService = characterService;
         }
 
         // GET: Admin
@@ -68,7 +71,7 @@ namespace descent_remote_final.Controllers
             {
                 var user = new User();
                 user.Name = viewModel.Name;
-                user.Character = Characters.All.SingleOrDefault(x => x.Name == viewModel.CharacterName);
+                user.Character = characterService.GetByName(viewModel.CharacterName);
                 user.SkillCards = new List<SkillCard>();
                 user.ShopCards = new List<ShopCard>();
                 user.ClassEquipmentCards = new List<ClassEquipmentCard>();
@@ -150,15 +153,28 @@ namespace descent_remote_final.Controllers
         {
             try
             {
-                var user = userService.Get(id);
-                user.Name = viewModel.Name;
-                user.Character = Characters.All.SingleOrDefault(x => x.Name == viewModel.CharacterName);
+                var dbUser = userService.Get(id);
+                var appUser = _gameHandler.Users.SingleOrDefault(u => u.Id == id);
+
+                // Update user name
+                dbUser.Name = viewModel.Name;
+                appUser.Name = viewModel.Name;
+
+                // Update the character
+
+                var character = characterService.GetByName(viewModel.CharacterName);
+                dbUser.Character = character;
+                appUser.Character = character;
 
                 // Reset user cards
-                user.SkillCards = new List<SkillCard>();
-                user.ShopCards = new List<ShopCard>();
-                user.ClassEquipmentCards = new List<ClassEquipmentCard>();
-                user.FamiliarCards = new List<FamiliarCard>();
+                dbUser.SkillCards = new List<SkillCard>();
+                dbUser.ShopCards = new List<ShopCard>();
+                dbUser.ClassEquipmentCards = new List<ClassEquipmentCard>();
+                dbUser.FamiliarCards = new List<FamiliarCard>();
+                appUser.SkillCards = new List<SkillCard>();
+                appUser.ShopCards = new List<ShopCard>();
+                appUser.ClassEquipmentCards = new List<ClassEquipmentCard>();
+                appUser.FamiliarCards = new List<FamiliarCard>();
 
                 // Set newly selected SkillCards based on user selection in the UI
                 var allSkillCards = skillCardService.Get();
@@ -166,8 +182,10 @@ namespace descent_remote_final.Controllers
                 
                 foreach (var card in allSkillCards)
                 {
-                    if (selectedSkillCards.Where(x => x.DisplayName == card.Name).Any())
-                        user.SkillCards.Add(card);
+                    if (selectedSkillCards.Where(x => x.DisplayName == card.Name).Any()){
+                        dbUser.SkillCards.Add(card);
+                        appUser.SkillCards.Add(card);
+                    }
                 }
 
                 // Set newly selected ClassEquipmentCards based on user selection in the UI
@@ -176,8 +194,10 @@ namespace descent_remote_final.Controllers
 
                 foreach (var card in allClassEquipmentCards)
                 {
-                    if (selectedClassEquipmentCards.Where(x => x.DisplayName == card.Name).Any())
-                        user.ClassEquipmentCards.Add(card);
+                    if (selectedClassEquipmentCards.Where(x => x.DisplayName == card.Name).Any()){
+                        dbUser.ClassEquipmentCards.Add(card);
+                        appUser.ClassEquipmentCards.Add(card);
+                    } 
                 }
 
                 // Set newly selected ShopCards based on user selection in the UI
@@ -186,8 +206,10 @@ namespace descent_remote_final.Controllers
 
                 foreach (var card in allShopCards)
                 {
-                    if (selectedShopCards.Where(x => x.DisplayName == card.Name).Any())
-                        user.ShopCards.Add(card);
+                    if (selectedShopCards.Where(x => x.DisplayName == card.Name).Any()){
+                        dbUser.ShopCards.Add(card);
+                        appUser.ShopCards.Add(card);
+                    }
                 }
 
                 // Set newly selected FamiliarCards based on user selection in the UI
@@ -196,16 +218,17 @@ namespace descent_remote_final.Controllers
 
                 foreach (var card in allFamiliarCards)
                 {
-                    if (selectedFamiliarCards.Where(x => x.DisplayName == card.Name).Any())
-                        user.FamiliarCards.Add(card);
+                    if (selectedFamiliarCards.Where(x => x.DisplayName == card.Name).Any()){
+                        dbUser.FamiliarCards.Add(card);
+                        appUser.FamiliarCards.Add(card);
+                    }
                 }
 
-                userService.Update(id, user);
+                userService.Update(id, dbUser);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
             {
-
                 return View();
             }
         }

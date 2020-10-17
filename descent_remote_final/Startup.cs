@@ -32,6 +32,7 @@ namespace descent_remote_final
             services.AddScoped<FamiliarCardService>();
             services.AddScoped<LieutenantService>();
             services.AddScoped<MonsterService>();
+            services.AddScoped<CharacterService>();
             services.AddSingleton<GameHandler>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
