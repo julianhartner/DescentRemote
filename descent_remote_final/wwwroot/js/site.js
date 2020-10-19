@@ -63,7 +63,7 @@ function exhaustCard(card) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
-        data: "userId=" + getCookie("id") + "&cardId=" + id,
+        data: "userId=" + getUserId() + "&cardId=" + id,
         dataType: "json"
     }).done(function (isSuccessful) {
         if (isSuccessful) {
@@ -92,7 +92,7 @@ function refreshCard(card) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
-        data: "userId=" + getCookie("id") + "&cardId=" + id,
+        data: "userId=" + getUserId() + "&cardId=" + id,
         dataType: "json"
     }).done(function (isSuccessful) {
         if (isSuccessful) {
@@ -118,7 +118,7 @@ function equipCard(card) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
-        data: "userId=" + getCookie("id") + "&cardId=" + id,
+        data: "userId=" + getUserId() + "&cardId=" + id,
         dataType: "json"
     }).done(function (isSuccessful) {
         if (isSuccessful) {
@@ -144,7 +144,7 @@ function unequipCard(card) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
-        data: "userId=" + getCookie("id") + "&cardId=" + id,
+        data: "userId=" + getUserId() + "&cardId=" + id,
         dataType: "json"
     }).done(function (isSuccessful) {
         if (isSuccessful) {
@@ -169,7 +169,7 @@ function addFamiliarHealth(card) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
-        data: "userId=" + getCookie("id") + "&familiarId=" + id,
+        data: "userId=" + getUserId() + "&familiarId=" + id,
         dataType: "json"
     }).done(function (data) {
         document.getElementById(id + '_currenthealth').innerHTML = data;
@@ -188,7 +188,7 @@ function removeFamiliarHealth(card) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
-        data: "userId=" + getCookie("id") + "&familiarId=" + id,
+        data: "userId=" + getUserId() + "&familiarId=" + id,
         dataType: "json"
     }).done(function (data) {
         document.getElementById(id + '_currenthealth').innerHTML = data;
@@ -214,7 +214,7 @@ function reviveFamiliar(card) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
-        data: "userId=" + getCookie("id") + "&familiarId=" + id,
+        data: "userId=" + getUserId() + "&familiarId=" + id,
         dataType: "json"
     }).done(function (data) {
         document.getElementById(id + '_currenthealth').innerHTML = data;
@@ -235,7 +235,7 @@ function editHealth(ajaxUrl) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
-        data: "id=" + getCookie("id"),
+        data: "id=" + getUserId(),
         dataType: "json"
     }).done(function (data) {
         document.getElementById("currentHealth").innerHTML = data;
@@ -252,7 +252,7 @@ function editStamina(ajaxUrl) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
-        data: "id=" + getCookie("id"),
+        data: "id=" + getUserId(),
         dataType: "json"
     }).done(function (data) {
         document.getElementById("currentStamina").innerHTML = data;
@@ -260,7 +260,7 @@ function editStamina(ajaxUrl) {
 }
 
 function exhaustHeroicFeat() {
-    var id = getCookie("id");
+    var id = getUserId();
     $.ajax({
         type: "GET",
         url: "/api/ExhaustHeroicFeat",
@@ -307,28 +307,32 @@ function resetGame() {
     }).done();
 }
 
-function getCookie(name) {
-    // Split cookie string and get all individual name=value pairs in an array
-    var cookieArr = document.cookie.split(";");
-
-    // Loop through the array elements
-    for (var i = 0; i < cookieArr.length; i++) {
-        var cookiePair = cookieArr[i].split("=");
-
-        /* Removing whitespace at the beginning of the cookie name
-        and compare it with the given string */
-        if (name == cookiePair[0].trim()) {
-            // Decode the cookie value and return
-            return decodeURIComponent(cookiePair[1]);
-        }
-    }
-
-    // Return null if not found
-    return null;
+function getUserId() {
+    return document.getElementById("user-id").innerHTML;
 }
 
-function setCookie(id, currHealth, currStamina) {
-    document.cookie = "";
-    var cookie = "id=" + id + "; current_health=" + currHealth + "; current_stamina=" + currStamina;
-    document.cookie = cookie;
-}
+// function getCookie(name) {
+//     // Split cookie string and get all individual name=value pairs in an array
+//     var cookieArr = document.cookie.split(";");
+
+//     // Loop through the array elements
+//     for (var i = 0; i < cookieArr.length; i++) {
+//         var cookiePair = cookieArr[i].split("=");
+
+//         /* Removing whitespace at the beginning of the cookie name
+//         and compare it with the given string */
+//         if (name == cookiePair[0].trim()) {
+//             // Decode the cookie value and return
+//             return decodeURIComponent(cookiePair[1]);
+//         }
+//     }
+
+//     // Return null if not found
+//     return null;
+// }
+
+// function setCookie(id, currHealth, currStamina) {
+//     document.cookie = "";
+//     var cookie = "id=" + id + "; current_health=" + currHealth + "; current_stamina=" + currStamina;
+//     document.cookie = cookie;
+// }

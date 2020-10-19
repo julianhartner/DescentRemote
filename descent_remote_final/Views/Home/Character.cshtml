@@ -34,6 +34,7 @@
         </ul>
     </div>
 </nav>
+<div id="user-id" hidden="true">@Model.Id</div>
 <div class="row main-container">
     <div class="col-xl-6 d-flex justify-content-center">
         <div class="char-attr-container float-left">
@@ -70,29 +71,9 @@
                 </div>
             </div>
         </div>
-        @switch (Model.Character.Name)
-        {
-            case "Grisban the Thirsty":
-                <div class="img-container float-left">
-                    <img class="char-img" src="~/images/characters/grisban_the_thirsty_full.jpg" alt="Image" />
-                </div>
-                break;
-            case "Jain Fairwood":
-                <div class="img-container float-left">
-                    <img class="char-img" src="~/images/characters/jain_fairwood_full.png" alt="Image" />
-                </div>
-                break;
-            case "Widow Tarha":
-                <div class="img-container float-left">
-                    <img class="char-img" src="~/images/characters/widow_tarha_full.jpg" alt="Image" />
-                </div>
-                break;
-            case "Ashirian":
-                <div class="img-container float-left">
-                    <img class="char-img" src="~/images/characters/ashrian_full.jpg" alt="Image" />
-                </div>
-                break;
-        }
+        <div class="img-container float-left">
+            <img class="char-img" src="@Model.Character.ImageLocation" alt="Image" />
+        </div>
         <div class="float-left char-base-attr-container">
             <div class="char-speed">
                 <div class="attr-rectangle-right speed">

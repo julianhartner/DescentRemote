@@ -2,6 +2,7 @@ using descent_remote_final.Models;
 using descent_remote_final.Models.Lieutenants;
 using descent_remote_final.Models.Monsters;
 using descent_remote_final.Services;
+using descent_remote_final.Util;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,14 +34,13 @@ namespace descent_remote_final
             services.AddScoped<LieutenantService>();
             services.AddScoped<MonsterService>();
             services.AddScoped<CharacterService>();
-            services.AddSingleton<GameHandler>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GameHandler gameHandler, UserService userService, LieutenantService lieutenantService, MonsterService monsterService)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserService userService, LieutenantService lieutenantService, MonsterService monsterService)
         {
             if (env.IsDevelopment())
             {
@@ -78,13 +78,13 @@ namespace descent_remote_final
                 user.Character.HeroicFeatUsed = false;
             }
 
-            gameHandler.Users = userList;
+            GameHandler.Users = userList;
 
             IList<Lieutenant> lieutenants = lieutenantService.Get();
             IList<Monster> monsters = monsterService.Get();
 
-            gameHandler.Lieutenants = lieutenants;
-            gameHandler.Monsters = monsters;
+            GameHandler.Lieutenants = lieutenants;
+            GameHandler.Monsters = monsters;
         }
     }
 }

@@ -2,43 +2,41 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using descent_remote_final.Models;
-using descent_remote_final.Services;
 using descent_remote_final.ViewModels;
 using System.Linq;
+using descent_remote_final.Util;
 
 namespace descent_remote_final.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly GameHandler _gameHandler;
 
-        public HomeController(ILogger<HomeController> logger, GameHandler gameHandler)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _gameHandler = gameHandler;
         }
 
         public IActionResult Index()
         {
-            return View(_gameHandler.Users);
+            return View(GameHandler.Users);
         }
 
         public IActionResult Character(string username)
         {
-            var user = _gameHandler.Users.FirstOrDefault(u => u.Name == username);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Name == username);
             return View(new DashboardUserViewModel(user));
         }
 
         public IActionResult Overlord(string username)
         {
-            var user = _gameHandler.Users.FirstOrDefault(u => u.Name == username);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Name == username);
             return View(new OverlordUserViewModel(user));
         }
 
         public IActionResult Cookie(string id)
         {
-            var user = _gameHandler.Users.FirstOrDefault(u => u.Id == id);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == id);
 
             Response.Cookies.Append("id", id);
 

@@ -93,7 +93,7 @@ function CloseLieutenantsPopup() {
                 xhr.setRequestHeader("XSRF-TOKEN",
                     $('input:hidden[name="__RequestVerificationToken"]').val());
             },
-            data: "userId=" + getCookie("id") + "&lieutenantId=" + idArr[i],
+            data: "userId=" + getUserId() + "&lieutenantId=" + idArr[i],
             dataType: "json"
         }).done(function (lieutenant) {
             if (lieutenant == null)
@@ -165,7 +165,7 @@ function CloseMonstersPopup() {
                 xhr.setRequestHeader("XSRF-TOKEN",
                     $('input:hidden[name="__RequestVerificationToken"]').val());
             },
-            data: "userId=" + getCookie("id") + "&monsterId=" + idArr[i],
+            data: "userId=" + getUserId() + "&monsterId=" + idArr[i],
             dataType: "json"
         }).done(function (monster) {
             if (monster == null)

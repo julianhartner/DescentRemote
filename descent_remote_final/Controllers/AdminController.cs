@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using descent_remote_final.Constants;
 using descent_remote_final.Models;
-using descent_remote_final.Models.Lieutenants;
-using descent_remote_final.Models.Monsters;
 using descent_remote_final.Services;
+using descent_remote_final.Util;
 using descent_remote_final.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +18,12 @@ namespace descent_remote_final.Controllers
         private readonly ClassEquipmentCardService classEquipmentCardService;
         private readonly FamiliarCardService familiarCardService;
         private readonly CharacterService characterService;
-        private readonly GameHandler _gameHandler;
 
         public AdminController(UserService userService, 
             ShopCardService shopCardService, 
             SkillCardService skillCardService, 
             ClassEquipmentCardService classEquipmentCardService, 
             FamiliarCardService familiarCardService,
-            GameHandler gameHandler,
             CharacterService characterService)
         {
             this.userService = userService;
@@ -35,7 +31,6 @@ namespace descent_remote_final.Controllers
             this.skillCardService = skillCardService;
             this.classEquipmentCardService = classEquipmentCardService;
             this.familiarCardService = familiarCardService;
-            this._gameHandler = gameHandler;
             this.characterService = characterService;
         }
 
@@ -125,7 +120,8 @@ namespace descent_remote_final.Controllers
                 }
 
                 userService.Create(user);
-                _gameHandler.Users.Add(user);
+                GameHandler.Users.Add(user);
+                //_gameHandler.Users.Add(user);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -154,7 +150,8 @@ namespace descent_remote_final.Controllers
             try
             {
                 var dbUser = userService.Get(id);
-                var appUser = _gameHandler.Users.SingleOrDefault(u => u.Id == id);
+                var appUser = GameHandler.Users.SingleOrDefault(u => u.Id == id);
+                //var appUser = _gameHandler.Users.SingleOrDefault(u => u.Id == id);
 
                 // Update user name
                 dbUser.Name = viewModel.Name;

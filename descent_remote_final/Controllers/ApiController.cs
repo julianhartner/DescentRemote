@@ -1,25 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using descent_remote_final.Models.Lieutenants;
+﻿using System.Linq;
 using descent_remote_final.Services;
+using descent_remote_final.Util;
 using Microsoft.AspNetCore.Mvc;
 
 namespace descent_remote_final.Controllers
 {
     public class ApiController : Controller
     {
-        private readonly GameHandler _gameHandler;
-
-        public ApiController(GameHandler gameHandler)
+        public ApiController()
         {
-            _gameHandler = gameHandler;
         }
 
         // GET: Api/AddHealth
         public ActionResult AddHealth(string id)
         {
-            var user = _gameHandler.Users.First(u => u.Id == id);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == id);
 
             if (user == null && user.Character == null)
                 return null;
@@ -41,7 +36,7 @@ namespace descent_remote_final.Controllers
         // GET: Api/RemoveHealth
         public ActionResult RemoveHealth(string id)
         {
-            var user = _gameHandler.Users.First(u => u.Id == id);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == id);
 
             if (user.Character == null)
                 return null;
@@ -63,7 +58,7 @@ namespace descent_remote_final.Controllers
         // GET: Api/AddStamina
         public ActionResult AddStamina(string id)
         {
-            var user = _gameHandler.Users.First(u => u.Id == id);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == id);
 
             if (user.Character == null)
                 return null;
@@ -85,7 +80,7 @@ namespace descent_remote_final.Controllers
         // GET: Api/RemoveStamina
         public ActionResult RemoveStamina(string id)
         {
-            var user = _gameHandler.Users.First(u => u.Id == id);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == id);
 
             if (user.Character == null)
                 return null;
@@ -107,7 +102,7 @@ namespace descent_remote_final.Controllers
         // GET: Api/AddFamiliarHealth
         public ActionResult AddFamiliarHealth(string userId, string familiarId)
         {
-            var user = _gameHandler.Users.First(u => u.Id == userId);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == userId);
 
             if (user.Character == null)
                 return null;
@@ -136,7 +131,7 @@ namespace descent_remote_final.Controllers
         // GET: Api/RemoveFamiliarHealth
         public ActionResult RemoveFamiliarHealth(string userId, string familiarId)
         {
-            var user = _gameHandler.Users.First(u => u.Id == userId);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == userId);
 
             if (user.Character == null)
                 return null;
@@ -160,7 +155,7 @@ namespace descent_remote_final.Controllers
         // GET: Api/RemoveFamiliarHealth
         public ActionResult ReviveFamiliar(string userId, string familiarId)
         {
-            var user = _gameHandler.Users.First(u => u.Id == userId);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == userId);
 
             if (user.Character == null)
                 return null;
@@ -175,7 +170,7 @@ namespace descent_remote_final.Controllers
 
         public ActionResult ExhaustHeroicFeat(string userId)
         {
-            var user = _gameHandler.Users.First(u => u.Id == userId);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == userId);
 
             if (user.Character == null)
                 return Json(false);
@@ -189,7 +184,7 @@ namespace descent_remote_final.Controllers
 
         public ActionResult ExhaustCard(string userId, string cardId)
         {
-            var user = _gameHandler.Users.FirstOrDefault(u => u.Id == userId);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == userId);
 
             var classEquipcard = user.ClassEquipmentCards.FirstOrDefault(u => u.Id == cardId);
             if (classEquipcard != null)
@@ -220,7 +215,7 @@ namespace descent_remote_final.Controllers
 
         public ActionResult RefreshCard(string userId, string cardId)
         {
-            var user = _gameHandler.Users.FirstOrDefault(u => u.Id == userId);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == userId);
 
             var classEquipcard = user.ClassEquipmentCards.FirstOrDefault(u => u.Id == cardId);
             if (classEquipcard != null)
@@ -251,7 +246,7 @@ namespace descent_remote_final.Controllers
 
         public ActionResult EquipCard(string userId, string cardId)
         {
-            var user = _gameHandler.Users.FirstOrDefault(u => u.Id == userId);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == userId);
 
             var classEquipcard = user.ClassEquipmentCards.FirstOrDefault(u => u.Id == cardId);
             if (classEquipcard != null)
@@ -274,7 +269,7 @@ namespace descent_remote_final.Controllers
 
         public ActionResult UnequipCard(string userId, string cardId)
         {
-            var user = _gameHandler.Users.FirstOrDefault(u => u.Id == userId);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == userId);
 
             var classEquipcard = user.ClassEquipmentCards.FirstOrDefault(u => u.Id == cardId);
             if (classEquipcard != null)
@@ -297,7 +292,7 @@ namespace descent_remote_final.Controllers
 
         public ActionResult Reset(string userId)
         {
-            var user = _gameHandler.Users.First(u => u.Id == userId);
+            var user = GameHandler.Users.FirstOrDefault(u => u.Id == userId);
 
             user.Character.HeroicFeatUsed = false;
             return Json(true);
@@ -305,7 +300,7 @@ namespace descent_remote_final.Controllers
 
         public ActionResult ResetGame()
         {
-            var users = _gameHandler.Users;
+            var users = GameHandler.Users;
 
             if (users == null)
                 return Json(false);
@@ -329,17 +324,17 @@ namespace descent_remote_final.Controllers
 
         public ActionResult GetLieutenants()
         {
-            return Json(_gameHandler.Lieutenants);
+            return Json(GameHandler.Lieutenants);
         }
 
         public ActionResult GetMonsters()
         {
-            return Json(_gameHandler.Monsters);
+            return Json(GameHandler.Monsters);
         }
 
         public ActionResult GetUsers()
         {
-            return Json(_gameHandler.Users.Select(u => u.Name).ToArray());
+            return Json(GameHandler.Users.Select(u => u.Name).ToArray());
         }
 
         public ActionResult AddLieutenant(string userId, string lieutenantId)
@@ -347,8 +342,8 @@ namespace descent_remote_final.Controllers
             if (userId == "" || lieutenantId == null || lieutenantId == "")
                 return null;
 
-            var lieutenant = _gameHandler.Lieutenants.FirstOrDefault(l => l.Id == lieutenantId);
-            _gameHandler.Users.FirstOrDefault(i => i.Id == userId).Lieutenants.Add(lieutenant);
+            var lieutenant = GameHandler.Lieutenants.FirstOrDefault(l => l.Id == lieutenantId);
+            GameHandler.Users.FirstOrDefault(i => i.Id == userId).Lieutenants.Add(lieutenant);
 
             return Json(lieutenant);
         }
@@ -358,8 +353,8 @@ namespace descent_remote_final.Controllers
             if (userId == "" || monsterId == null || monsterId == "")
                 return null;
 
-            var monster = _gameHandler.Monsters.FirstOrDefault(l => l.Id == monsterId);
-            _gameHandler.Users.FirstOrDefault(i => i.Id == userId).Monsters.Add(monster);
+            var monster = GameHandler.Monsters.FirstOrDefault(l => l.Id == monsterId);
+            GameHandler.Users.FirstOrDefault(i => i.Id == userId).Monsters.Add(monster);
 
             return Json(monster);
         }
