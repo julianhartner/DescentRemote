@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using descent_remote_final.Services;
 using descent_remote_final.Util;
+using descent_remote_final.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace descent_remote_final.Controllers
@@ -357,6 +358,12 @@ namespace descent_remote_final.Controllers
             GameHandler.Users.FirstOrDefault(i => i.Id == userId).Monsters.Add(monster);
 
             return Json(monster);
+        }
+
+        public ActionResult GetUser(string username)
+        {
+            var user = GameHandler.Users.FirstOrDefault(u => u.Name == username);
+            return Json(new DashboardUserViewModel(user));
         }
     }
 }

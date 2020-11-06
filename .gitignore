@@ -9,3 +9,6 @@ descent_remote_final/bin/
 .vs/descent_remote_final/DesignTimeBuild/.dtbcache
 .vs/descent_remote_final/config/applicationhost.config
 .cr/personal/Editor/Painting/Structural Highlighting.xml
+descent_remote_final_vscworkspace.code-workspace
+descent_remote_final/.vscode/launch.json
+descent_remote_final/.vscode/tasks.json
