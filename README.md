@@ -1,3 +1,3 @@
 # DescentRemote
 
-https://descentremote.azurewebsites.net
+https://awesomedescent.azurewebsites.net
