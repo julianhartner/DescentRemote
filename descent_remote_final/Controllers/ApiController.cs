@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace descent_remote_final.Controllers
 {
+    [EnableCors("ApiPolicy")]
     public class ApiController : Controller
     {
         public ApiController()

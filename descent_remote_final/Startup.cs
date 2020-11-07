@@ -35,6 +35,15 @@ namespace descent_remote_final
             services.AddScoped<MonsterService>();
             services.AddScoped<CharacterService>();
 
+            services.AddCors(options =>
+                {
+                    options.AddPolicy("ApiPolicy",
+                        builder =>
+                        {
+                            builder.WithOrigins("http://localhost:3000/");
+                        });
+                });
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
         }
