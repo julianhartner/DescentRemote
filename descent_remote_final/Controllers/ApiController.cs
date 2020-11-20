@@ -337,7 +337,7 @@ namespace descent_remote_final.Controllers
 
         public ActionResult GetUsers()
         {
-            return Json(GameHandler.Users.Select(u => u.Name).ToArray());
+            return Json(GameHandler.Users.Select(u => u.Name));
         }
 
         public ActionResult AddLieutenant(string userId, string lieutenantId)
