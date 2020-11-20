@@ -3,7 +3,7 @@ using descent_remote_final.Services;
 using descent_remote_final.Util;
 using descent_remote_final.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Web.Http.Cors;
+using Microsoft.AspNetCore.Cors;
 
 namespace descent_remote_final.Controllers
 {
