@@ -25,6 +25,7 @@ namespace descent_remote_final
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllersWithViews();
             services.AddScoped<UserService>();
             services.AddScoped<SkillCardService>();
@@ -35,14 +36,7 @@ namespace descent_remote_final
             services.AddScoped<MonsterService>();
             services.AddScoped<CharacterService>();
 
-            services.AddCors(options =>
-                {
-                    options.AddPolicy("ApiPolicy",
-                        builder =>
-                        {
-                            builder.WithOrigins("http://localhost:3000/");
-                        });
-                });
+            
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
@@ -61,6 +55,15 @@ namespace descent_remote_final
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors(options =>
+                {
+                    options.AddPolicy("ApiPolicy",
+                        builder =>
+                        {
+                            builder.WithOrigins("http://localhost:3000");
+                        });
+                });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -74,6 +77,8 @@ namespace descent_remote_final
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            
 
             // Load users
             IList<User> userList = userService.Get();
